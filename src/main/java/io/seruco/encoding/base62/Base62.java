@@ -79,7 +79,7 @@ public class Base62 {
             source = quotient.toByteArray();
         }
 
-        for (int i = 0; message[i] == 0; i++) {
+        for (int i = 0; i < message.length - 1 && message[i] == 0; i++) {
             out.write(0);
         }
 
