@@ -37,6 +37,20 @@ public class Base62Tests {
         }
     }
 
+    @Test
+    @DisplayName("should be able to handle empty inputs")
+    public void emptyInputs() {
+        final byte[] empty = new byte[0];
+
+        for (Base62 encoder : encoders) {
+            final byte[] encoded = encoder.encode(empty);
+            Assertions.assertArrayEquals(empty, encoded);
+
+            final byte[] decoded = encoder.decode(empty);
+            Assertions.assertArrayEquals(empty, decoded);
+        }
+    }
+
     private byte[] createIncreasingByteArray() {
         final byte[] arr = new byte[256];
         for (int i = 0; i < 256; i++) {
