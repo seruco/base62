@@ -29,8 +29,8 @@ public class Base62Tests {
 
         for (byte[] message : inputs) {
             for (Base62 encoder : encoders) {
-                final byte[] encoded = standardEncoder.encode(message);
-                final byte[] decoded = standardEncoder.decode(encoded);
+                final byte[] encoded = encoder.encode(message);
+                final byte[] decoded = encoder.decode(encoded);
 
                 Assertions.assertArrayEquals(message, decoded);
             }
