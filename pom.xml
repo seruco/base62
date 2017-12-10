@@ -25,6 +25,9 @@
     </developers>
 
     <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <junit-jupiter.version>5.0.2</junit-jupiter.version>
         <junit-vintage.version>4.12.2</junit-vintage.version>
