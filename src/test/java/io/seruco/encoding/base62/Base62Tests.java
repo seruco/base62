@@ -21,7 +21,10 @@ public class Base62Tests {
     public void preservesIdentity() {
         final byte[][] inputs = {
                 createIncreasingByteArray(),
-                createZeroesByteArray(512)
+                createZeroesByteArray(512),
+                createPseudoRandomByteArray(0xAB, 40),
+                createPseudoRandomByteArray(0x1C, 40),
+                createPseudoRandomByteArray(0xF2, 40)
         };
 
         for (byte[] message : inputs) {
@@ -44,5 +47,24 @@ public class Base62Tests {
 
     private byte[] createZeroesByteArray(int size) {
         return new byte[size];
+    }
+
+    private byte[] createPseudoRandomByteArray(int seed, int size) {
+        final byte[] arr = new byte[size];
+        int state = seed;
+        for (int i = 0; i < size; i += 4) {
+            state = xorshift(state);
+            for (int j = 0; j < 4 && i + j < size; j++) {
+                arr[i + j] = (byte) ((state >> j) & 0xFF);
+            }
+        }
+        return arr;
+    }
+
+    private int xorshift(int x) {
+        x ^= (x << 13);
+        x ^= (x >> 17);
+        x ^= (x << 5);
+        return x;
     }
 }
