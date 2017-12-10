@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Base62")
 public class Base62Test {
@@ -24,20 +25,25 @@ public class Base62Test {
     @Test
     @DisplayName("should preserve identity of simple byte arrays")
     public void preservesIdentity() {
-        final byte[][] inputs = {
-                createIncreasingByteArray(),
-                createZeroesByteArray(512),
-                createPseudoRandomByteArray(0xAB, 40),
-                createPseudoRandomByteArray(0x1C, 40),
-                createPseudoRandomByteArray(0xF2, 40)
-        };
-
-        for (byte[] message : inputs) {
+        for (byte[] message : rawInputs) {
             for (Base62 encoder : encoders) {
                 final byte[] encoded = encoder.encode(message);
                 final byte[] decoded = encoder.decode(encoded);
 
                 assertArrayEquals(message, decoded);
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("should produce encodings that only contain alphanumeric characters")
+    public void alphaNumericOutput() {
+        for (byte[] message : rawInputs) {
+            for (Base62 encoder : encoders) {
+                final byte[] encoded = encoder.encode(message);
+                final String encodedStr = new String(encoded);
+
+                assertTrue(isAlphaNumeric(encodedStr));
             }
         }
     }
@@ -64,6 +70,14 @@ public class Base62Test {
         }
     }
 
+    private final byte[][] rawInputs = {
+            createIncreasingByteArray(),
+            createZeroesByteArray(512),
+            createPseudoRandomByteArray(0xAB, 40),
+            createPseudoRandomByteArray(0x1C, 40),
+            createPseudoRandomByteArray(0xF2, 40)
+    };
+
     private Map<String, String> createNaiveTestSet() {
         final Map<String, String> testSet = new HashMap<String, String>();
 
@@ -74,6 +88,10 @@ public class Base62Test {
         testSet.put("Sphinx of black quartz, judge my vow", "1Ul5yQGNM8YFBp3sz19dYj1kTp95OW7jI8pTcTP5JhYjIaFmx");
 
         return testSet;
+    }
+
+    private boolean isAlphaNumeric(final String str) {
+        return str.matches("^[a-zA-Z0-9]+$");
     }
 
     private String encode(final String input) {
