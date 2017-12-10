@@ -143,3 +143,5 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/maven,eclipse,netbeans,intellij+all
+
+*.iml
