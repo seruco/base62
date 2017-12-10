@@ -1,8 +1,13 @@
 package io.seruco.encoding.base62;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Base62")
 public class Base62Tests {
@@ -32,7 +37,7 @@ public class Base62Tests {
                 final byte[] encoded = encoder.encode(message);
                 final byte[] decoded = encoder.decode(encoded);
 
-                Assertions.assertArrayEquals(message, decoded);
+                assertArrayEquals(message, decoded);
             }
         }
     }
@@ -44,11 +49,35 @@ public class Base62Tests {
 
         for (Base62 encoder : encoders) {
             final byte[] encoded = encoder.encode(empty);
-            Assertions.assertArrayEquals(empty, encoded);
+            assertArrayEquals(empty, encoded);
 
             final byte[] decoded = encoder.decode(empty);
-            Assertions.assertArrayEquals(empty, decoded);
+            assertArrayEquals(empty, decoded);
         }
+    }
+
+    @Test
+    @DisplayName("should behave correctly on naive test set")
+    public void naiveTestSet() {
+        for (Map.Entry<String, String> testSetEntry : createNaiveTestSet().entrySet()) {
+            assertEquals(encode(testSetEntry.getKey()), testSetEntry.getValue());
+        }
+    }
+
+    private Map<String, String> createNaiveTestSet() {
+        final Map<String, String> testSet = new HashMap<String, String>();
+
+        testSet.put("", "");
+        testSet.put("Hello", "5TP3P3v");
+        testSet.put("0123456789", "18XU2xYejWO9d3");
+        testSet.put("The quick brown fox jumps over the lazy dog", "83UM8dOjD4xrzASgmqLOXTgTagvV1jPegUJ39mcYnwHwTlzpdfKXvpp4RL");
+        testSet.put("Sphinx of black quartz, judge my vow", "1Ul5yQGNM8YFBp3sz19dYj1kTp95OW7jI8pTcTP5JhYjIaFmx");
+
+        return testSet;
+    }
+
+    private String encode(final String input) {
+        return new String(standardEncoder.encode(input.getBytes()));
     }
 
     private byte[] createIncreasingByteArray() {
