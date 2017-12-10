@@ -52,7 +52,7 @@ public class Base62 {
 
     private byte[] convert(final byte[] message, final int sourceBase, final int targetBase) {
         /**
-         * This algorithm is an adaptation of: http://codegolf.stackexchange.com/a/21672
+         * This algorithm is inspired by: http://codegolf.stackexchange.com/a/21672
          */
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -79,6 +79,10 @@ public class Base62 {
             source = quotient.toByteArray();
         }
 
+        for (int i = 0; message[i] == 0; i++) {
+            out.write(0);
+        }
+
         return reverse(out.toByteArray());
     }
 
@@ -98,7 +102,7 @@ public class Base62 {
         lookup = new byte[256];
 
         for (int i = 0; i < alphabet.length; i++) {
-            lookup[alphabet[i]] = (byte) i;
+            lookup[alphabet[i]] = (byte) (i & 0xFF);
         }
     }
 
