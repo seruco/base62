@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Base62")
-public class Base62Tests {
+public class Base62Test {
 
     private final Base62 standardEncoder = Base62.createStandardEncoder();
 
