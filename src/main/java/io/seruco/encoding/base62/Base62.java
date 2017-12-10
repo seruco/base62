@@ -51,6 +51,9 @@ public class Base62 {
     }
 
     private byte[] convert(final byte[] message, final int sourceBase, final int targetBase) {
+        /**
+         * This algorithm is an adaptation of: http://codegolf.stackexchange.com/a/21672
+         */
         final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
         byte[] source = message;
