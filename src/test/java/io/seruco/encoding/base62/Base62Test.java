@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("Base62")
 public class Base62Test {
 
-    private final Base62 standardEncoder = Base62.createStandardEncoder();
+    private final Base62 standardEncoder = Base62.createInstance();
 
     private final Base62[] encoders = {
-            Base62.createStandardEncoder(),
-            Base62.createInvertedEncoder()
+            Base62.createInstanceWithGmpCharacterSet(),
+            Base62.createInstanceWithInvertedCharacterSet()
     };
 
     @Test

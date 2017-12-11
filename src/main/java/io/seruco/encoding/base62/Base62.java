@@ -23,12 +23,21 @@ public class Base62 {
     }
 
     /**
+     * Creates a {@link Base62} instance. Defaults to the GMP-style character set.
+     *
+     * @return a {@link Base62} instance.
+     */
+    public static Base62 createInstance() {
+        return createInstanceWithGmpCharacterSet();
+    }
+
+    /**
      * Creates a {@link Base62} instance using the GMP-style character set.
      *
      * @return a {@link Base62} instance.
      */
-    public static Base62 createStandardEncoder() {
-        return new Base62(Alphabets.STANDARD);
+    public static Base62 createInstanceWithGmpCharacterSet() {
+        return new Base62(CharacterSets.GMP);
     }
 
     /**
@@ -36,8 +45,8 @@ public class Base62 {
      *
      * @return a {@link Base62} instance.
      */
-    public static Base62 createInvertedEncoder() {
-        return new Base62(Alphabets.INVERTED);
+    public static Base62 createInstanceWithInvertedCharacterSet() {
+        return new Base62(CharacterSets.INVERTED);
     }
 
     /**
@@ -143,9 +152,9 @@ public class Base62 {
         }
     }
 
-    private static class Alphabets {
+    private static class CharacterSets {
 
-        private static final byte[] STANDARD = {
+        private static final byte[] GMP = {
                 (byte) '0', (byte) '1', (byte) '2', (byte) '3', (byte) '4', (byte) '5', (byte) '6', (byte) '7',
                 (byte) '8', (byte) '9', (byte) 'A', (byte) 'B', (byte) 'C', (byte) 'D', (byte) 'E', (byte) 'F',
                 (byte) 'G', (byte) 'H', (byte) 'I', (byte) 'J', (byte) 'K', (byte) 'L', (byte) 'M', (byte) 'N',
