@@ -3,6 +3,8 @@ package io.seruco.encoding.base62;
 import java.io.ByteArrayOutputStream;
 
 /**
+ * A Base62 encoder/decoder.
+ *
  * @author Sebastian Ruhleder, sebastian@seruco.io
  */
 public class Base62 {
@@ -20,26 +22,52 @@ public class Base62 {
         createLookupTable();
     }
 
+    /**
+     * Creates a {@link Base62} instance using the GMP-style character set.
+     *
+     * @return a {@link Base62} instance.
+     */
     public static Base62 createStandardEncoder() {
         return new Base62(Alphabets.STANDARD);
     }
 
+    /**
+     * Creates a {@link Base62} instance using the inverted character set.
+     *
+     * @return a {@link Base62} instance.
+     */
     public static Base62 createInvertedEncoder() {
         return new Base62(Alphabets.INVERTED);
     }
 
+    /**
+     * Encodes a sequence of bytes in Base62 encoding.
+     *
+     * @param message a byte sequence.
+     * @return a sequence of Base62-encoded bytes.
+     */
     public byte[] encode(final byte[] message) {
         final byte[] indices = convert(message, STANDARD_BASE, TARGET_BASE);
 
         return translate(indices, alphabet);
     }
 
+    /**
+     * Decodes a sequence of Base62-encoded bytes.
+     *
+     * @param encoded a sequence of Base62-encoded bytes.
+     * @return a byte sequence.
+     */
     public byte[] decode(final byte[] encoded) {
         final byte[] prepared = translate(encoded, lookup);
 
         return convert(prepared, TARGET_BASE, STANDARD_BASE);
     }
 
+    /**
+     * Uses the elements of a byte array as indices to a dictionary and returns the corresponding values
+     * in form of a byte array.
+     */
     private byte[] translate(final byte[] indices, final byte[] dictionary) {
         final byte[] translation = new byte[indices.length];
 
@@ -50,6 +78,9 @@ public class Base62 {
         return translation;
     }
 
+    /**
+     * Converts a byte array from a source base to a target base using the alphabet.
+     */
     private byte[] convert(final byte[] message, final int sourceBase, final int targetBase) {
         /**
          * This algorithm is inspired by: http://codegolf.stackexchange.com/a/21672
@@ -86,6 +117,9 @@ public class Base62 {
         return reverse(out.toByteArray());
     }
 
+    /**
+     * Reverses a byte array.
+     */
     private byte[] reverse(final byte[] arr) {
         final int length = arr.length;
 
@@ -98,6 +132,9 @@ public class Base62 {
         return reversed;
     }
 
+    /**
+     * Creates the lookup table from character to index of character in character set.
+     */
     private void createLookupTable() {
         lookup = new byte[256];
 
