@@ -43,7 +43,7 @@ This library supports two character sets: GMP-style or inverted. The difference 
 By default, we prefer the GMP-style character set. If you want to use the inverted character set, simply do this:
 
 ```java
-Base62 base62 = Base62.createInstanceWithInvertedAlphabet();
+Base62 base62 = Base62.createInstanceWithInvertedCharacterSet();
 ```
 
 ## Licensing
