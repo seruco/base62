@@ -16,8 +16,6 @@ For Maven-based projects, add the following to your `pom.xml` file. This depende
 
 ## Usage
 
-First, we create a `Base62` instance:
-
 ```java
 Base62 base62 = Base62.createInstance();
 ```
