@@ -29,6 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <junit-jupiter.version>5.0.2</junit-jupiter.version>
         <junit-vintage.version>4.12.2</junit-vintage.version>
         <junit-platform.version>1.0.2</junit-platform.version>
@@ -87,6 +88,11 @@
                         <version>${junit-platform.version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
