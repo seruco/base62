@@ -10,7 +10,7 @@
     <packaging>jar</packaging>
 
     <name>Base62</name>
-    <description>A Base62 encoder for Java</description>
+    <description>A Base62 encoder/decoder for Java</description>
     <url>https://github.com/seruco/base62</url>
 
     <licenses>
