@@ -119,6 +119,7 @@ public class Base62 {
             source = quotient.toByteArray();
         }
 
+        // pad output with zeroes corresponding to the number of leading zeroes in the message
         for (int i = 0; i < message.length - 1 && message[i] == 0; i++) {
             out.write(0);
         }
