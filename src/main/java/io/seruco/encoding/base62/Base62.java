@@ -102,7 +102,7 @@ public class Base62 {
         byte[] source = message;
 
         while (source.length > 0) {
-            final ByteArrayOutputStream quotient = new ByteArrayOutputStream();
+            final ByteArrayOutputStream quotient = new ByteArrayOutputStream(source.length);
 
             int remainder = 0;
 
