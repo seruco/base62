@@ -94,12 +94,15 @@ public class Base62 {
         /**
          * This algorithm is inspired by: http://codegolf.stackexchange.com/a/21672
          */
-        final ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        final int estimatedLength = estimateOutputLength(message.length, sourceBase, targetBase);
+
+        final ByteArrayOutputStream out = new ByteArrayOutputStream(estimatedLength);
 
         byte[] source = message;
 
         while (source.length > 0) {
-            final ByteArrayOutputStream quotient = new ByteArrayOutputStream();
+            final ByteArrayOutputStream quotient = new ByteArrayOutputStream(source.length);
 
             int remainder = 0;
 
@@ -125,6 +128,13 @@ public class Base62 {
         }
 
         return reverse(out.toByteArray());
+    }
+
+    /**
+     * Estimates the length of the output in bytes.
+     */
+    private int estimateOutputLength(int inputLength, int sourceBase, int targetBase) {
+        return (int) (Math.log(sourceBase) / Math.log(targetBase)) * inputLength;
     }
 
     /**
