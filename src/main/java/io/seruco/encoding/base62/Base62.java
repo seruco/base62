@@ -134,7 +134,7 @@ public class Base62 {
      * Estimates the length of the output in bytes.
      */
     private int estimateOutputLength(int inputLength, int sourceBase, int targetBase) {
-        return (int) (Math.log(sourceBase) / Math.log(targetBase)) * inputLength;
+        return (int) Math.ceil((Math.log(sourceBase) / Math.log(targetBase)) * inputLength);
     }
 
     /**
