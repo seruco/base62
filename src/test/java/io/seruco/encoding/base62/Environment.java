@@ -7,6 +7,7 @@ public class Environment {
     public static final byte[][] getRawInputs() {
         return new byte[][]{
                 createIncreasingByteArray(),
+                createZeroesByteArray(1),
                 createZeroesByteArray(512),
                 createPseudoRandomByteArray(0xAB, 40),
                 createPseudoRandomByteArray(0x1C, 40),
