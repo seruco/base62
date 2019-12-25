@@ -1,4 +1,4 @@
-# Base62 [![Build Status](https://travis-ci.org/seruco/base62.svg)](https://travis-ci.org/seruco/base62) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+# Base62 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
 
 **A Base62 Encoder/Decoder for Java**
 
@@ -10,7 +10,7 @@ For Maven-based projects, add the following to your `pom.xml` file. This depende
 <dependency>
     <groupId>io.seruco.encoding</groupId>
     <artifactId>base62</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 </dependency>
 ```
 
