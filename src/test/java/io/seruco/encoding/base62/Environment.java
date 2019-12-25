@@ -31,6 +31,15 @@ public class Environment {
         return testSet;
     }
 
+    public static final byte[][] getWrongEncoding() {
+        return new byte[][]{
+                "&".getBytes(),
+                "abcde$".getBytes(),
+                "()".getBytes(),
+                "\uD83D\uDE31".getBytes()
+        };
+    }
+
     private static byte[] createIncreasingByteArray() {
         final byte[] arr = new byte[256];
         for (int i = 0; i < 256; i++) {

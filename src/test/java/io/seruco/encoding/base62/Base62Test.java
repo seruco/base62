@@ -2,12 +2,14 @@ package io.seruco.encoding.base62;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DisplayName("Base62")
@@ -66,6 +68,44 @@ public class Base62Test {
         for (Map.Entry<String, String> testSetEntry : Environment.getNaiveTestSet().entrySet()) {
             assertEquals(encode(testSetEntry.getKey()), testSetEntry.getValue());
         }
+    }
+
+    @Test
+    @DisplayName("should throw exception when input is not encoded correctly")
+    public void wrongEncoding() {
+        for (final byte[] input : Environment.getWrongEncoding()) {
+            assertThrows(IllegalArgumentException.class, new Executable() {
+                @Override
+                public void execute() throws Throwable {
+                    standardEncoder.decode(input);
+                }
+            });
+        }
+    }
+
+    @Test
+    @DisplayName("should throw exception when input is null when decoding")
+    public void decodeNull() {
+        assertThrows(IllegalArgumentException.class, new Executable() {
+            @Override
+            public void execute() throws Throwable {
+                standardEncoder.decode(null);
+            }
+        });
+    }
+
+    @Test
+    @DisplayName("should check encoding correctly")
+    public void checkEncoding() {
+        assertTrue(standardEncoder.isBase62Encoding("0123456789".getBytes()));
+        assertTrue(standardEncoder.isBase62Encoding("abcdefghijklmnopqrstuvwxzy".getBytes()));
+        assertTrue(standardEncoder.isBase62Encoding("ABCDEFGHIJKLMNOPQRSTUVWXZY".getBytes()));
+
+        assertFalse(standardEncoder.isBase62Encoding("!".getBytes()));
+        assertFalse(standardEncoder.isBase62Encoding("@".getBytes()));
+        assertFalse(standardEncoder.isBase62Encoding("<>".getBytes()));
+        assertFalse(standardEncoder.isBase62Encoding("abcd%".getBytes()));
+        assertFalse(standardEncoder.isBase62Encoding("😱".getBytes()));
     }
 
     private String encode(final String input) {

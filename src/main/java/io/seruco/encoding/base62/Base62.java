@@ -66,11 +66,40 @@ public class Base62 {
      *
      * @param encoded a sequence of Base62-encoded bytes.
      * @return a byte sequence.
+     * @throws IllegalArgumentException when {@code encoded} is not encoded over the Base62 alphabet.
      */
     public byte[] decode(final byte[] encoded) {
+        if (!isBase62Encoding(encoded)) {
+            throw new IllegalArgumentException("Input is not encoded correctly");
+        }
+
         final byte[] prepared = translate(encoded, lookup);
 
         return convert(prepared, TARGET_BASE, STANDARD_BASE);
+    }
+
+    /**
+     * Checks whether a sequence of bytes is encoded over a Base62 alphabet.
+     *
+     * @param bytes a sequence of bytes.
+     * @return {@code true} when the bytes are encoded over a Base62 alphabet, {@code false} otherwise.
+     */
+    public boolean isBase62Encoding(final byte[] bytes) {
+        if (bytes == null) {
+            return false;
+        }
+
+        for (final byte e : bytes) {
+            if ('0' > e || '9' < e) {
+                if ('a' > e || 'z' < e) {
+                    if ('A' > e || 'Z' < e) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
