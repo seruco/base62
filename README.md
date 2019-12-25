@@ -10,7 +10,7 @@ For Maven-based projects, add the following to your `pom.xml` file. This depende
 <dependency>
     <groupId>io.seruco.encoding</groupId>
     <artifactId>base62</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3</version>
 </dependency>
 ```
 
